@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model staff {
+  StaffID      Int       @id @default(autoincrement())
+  UserID       Int?      @unique(map: "UserID")
+  StaffName    String    @db.VarChar(100)
+  MobileNo     String?   @db.VarChar(15)
+  EmailAddress String?   @db.VarChar(100)
+  Description  String?   @db.Text
+  Created      DateTime? @default(now()) @db.DateTime(0)
+  Modified     DateTime? @default(now()) @db.DateTime(0)
+}
+
+model student {
+  StudentID      Int      @id @default(autoincrement())
+  EnrollmentNo   String   @unique(map: "IDX_4e937aacce283f67e220906482") @db.VarChar(255)
+  StudentName    String   @db.VarChar(255)
+  MobileNo       String?  @db.VarChar(255)
+  EmailAddress   String?  @db.VarChar(255)
+  Description    String?  @db.Text
+  Created        DateTime @default(now()) @db.DateTime(6)
+  Modified       DateTime @default(now()) @db.DateTime(6)
+  UserID         Int?
+  ParentMobileNo String?  @db.VarChar(15)
+  ParentName     String?  @db.VarChar(255)
+
+  @@index([UserID], map: "FK_f243d347cde6649eb30da8c3020")
+}
+
+model studentmentor {
+  StudentMentorID Int       @id @default(autoincrement())
+  StudentID       Int
+  StaffID         Int
+  FromDate        DateTime  @db.Date
+  ToDate          DateTime? @db.Date
+  Description     String?   @db.Text
+  Created         DateTime? @default(now()) @db.DateTime(0)
+  Modified        DateTime? @default(now()) @db.DateTime(0)
+
+  @@index([StaffID], map: "StaffID")
+  @@index([StudentID], map: "StudentID")
+}
+
+model studentmentoring {
+  StudentMentoringID     Int       @id @default(autoincrement())
+  StudentMentorID        Int
+  DateOfMentoring        DateTime? @db.Date
+  ScheduledMeetingDate   DateTime? @db.Date
+  NextMentoringDate      DateTime? @db.Date
+  IssuesDiscussed        String?   @db.Text
+  MentoringMeetingAgenda String?   @db.Text
+  AttendanceStatus       String?   @db.VarChar(20)
+  AbsentRemarks          String?   @db.Text
+  IsParentPresent        Boolean?  @default(false)
+  ParentName             String?   @db.VarChar(100)
+  ParentMobileNo         String?   @db.VarChar(15)
+  StudentsOpinion        String?   @db.Text
+  ParentsOpinion         String?   @db.Text
+  StaffOpinion           String?   @db.Text
+  StressLevel            String?   @db.VarChar(20)
+  LearnerType            String?   @db.VarChar(30)
+  MentoringDocument      String?   @db.VarChar(255)
+  Description            String?   @db.Text
+  Created                DateTime? @default(now()) @db.DateTime(0)
+  Modified               DateTime? @default(now()) @db.DateTime(0)
+
+  @@index([StudentMentorID], map: "StudentMentorID")
+}
+
+model user {
+  UserID   Int       @id @default(autoincrement())
+  Username String    @unique(map: "IDX_ec04e2d5ee25370b44efa55619") @db.VarChar(255)
+  Password String    @db.VarChar(255)
+  Role     user_Role
+}
+
+enum user_Role {
+  ADMIN
+  STAFF
+  STUDENT
+}

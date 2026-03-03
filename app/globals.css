@@ -1,0 +1,881 @@
+/* Fix for the fixed-top navbar overlapping content */
+body {
+  padding-top: 0; /* Handled by mt-4 in layout */
+}
+
+/* Ensure the navbar stays within the main content width, not over the sidebar */
+.premium-nav {
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #e2e8f0;
+  /* If sidebar is present on desktop, offset the navbar */
+}
+
+@media (min-width: 992px) {
+  .fixed-top {
+    left: 260px !important; /* Matches sidebar width */
+    width: calc(100% - 260px) !important;
+  }
+}
+
+/* Specific fix for Student Portal text and SMMS overlapping */
+.navbar-brand {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Dashboard Card Responsiveness */
+.card-premium {
+  background: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  height: 100%;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+/* Core Layout Structure */
+:root {
+  --sidebar-width: 260px;
+  --primary-indigo: #4f46e5;
+}
+
+/* Fixes the navbar and main content overlap on large screens */
+@media (min-width: 992px) {
+  .premium-nav {
+    left: var(--sidebar-width) !important;
+    width: calc(100% - var(--sidebar-width)) !important;
+  }
+}
+
+/* Dashboard Component Styles */
+.card-premium {
+  background: white;
+  border-radius: 1.25rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-premium:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.1) !important;
+}
+
+.icon-box {
+  padding: 12px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge-premium {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 50px;
+  text-transform: uppercase;
+}
+
+.bg-light.border-dashed {
+  border: 2px dashed #e2e8f0 !important;
+  background-color: #f8fafc !important;
+}
+
+.ls-1 { letter-spacing: 0.5px; }
+
+/* Avatar & Status Styles */
+.avatar-lg {
+  width: 80px;
+  height: 80px;
+}
+
+.avatar-wrapper {
+  position: relative;
+  width: 80px;
+}
+
+.status-indicator {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.status-indicator.online { background-color: #10b981; }
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Core Layout Variables [cite: 1] */
+:root {
+  --sidebar-width: 260px;
+  --navbar-height: 70px;
+  --premium-indigo: #4f46e5;
+}
+
+/* Sidebar Container */
+.sidebar-container {  
+  width: 280px;
+  background-color: #ffffff;
+}
+
+
+
+/* Brand Logo Gradient */
+.brand-logo-gradient {
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+}
+
+.brand-name {
+  color: #1e293b;
+  letter-spacing: -1px;
+}
+
+/* Menu Labels */
+.menu-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+  letter-spacing: 0.05rem;
+}
+
+/* Sidebar Links */
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  color: #64748b;
+  text-decoration: none;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar-link:hover {
+  background-color: #f8fafc;
+  color: #4f46e5;
+  transform: translateX(4px);
+}
+
+.sidebar-link.active {
+  background-color: #eff6ff;
+  color: #2563eb;
+}
+
+.icon-size {
+  font-size: 22px;
+  margin-right: 12px;
+}
+
+.link-text {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+/* Active State Indicator Dot */
+.active-indicator {
+  position: absolute;
+  left: 0;
+  width: 4px;
+  height: 20px;
+  background: #2563eb;
+  border-radius: 0 4px 4px 0;
+}
+
+/* Mentor Card Premium */
+.mentor-card-premium {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+}
+
+.bg-indigo-soft {
+  background-color: #e0e7ff;
+  color: #4338ca;
+}
+
+.avatar-initials {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  border-radius: 12px;
+  font-size: 0.9rem;
+}
+
+.mentor-name {
+  font-size: 0.85rem;
+  color: #1e293b;
+}
+
+.mentor-role {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.btn-contact {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: #1e293b;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.btn-contact:hover {
+  background: #4f46e5;
+  color: #ffffff;
+}
+
+/* Avatar Online Indicator */
+.avatar-wrapper {
+  position: relative;
+}
+
+.online-status {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 12px;
+  height: 12px;
+  background-color: #10b981;
+  border: 2.5px solid #ffffff;
+  border-radius: 50%;
+}
+
+/* 1. Fix the Fixed-Top Navbar Overlap  */
+.premium-nav {
+  height: var(--navbar-height);
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid #e2e8f0;
+  z-index: 1030;
+  transition: all 0.3s ease;
+}
+
+/* Offset the navbar on desktop to prevent SMMS branding overlap  */
+@media (min-width: 992px) {
+  .premium-nav {
+    left: var(--sidebar-width) !important;
+    width: calc(100% - var(--sidebar-width)) !important;
+  }
+}
+
+/* 2. Premium Branding & UI Elements  */
+.profile-pill {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 50px !important;
+  padding: 4px 4px 4px 12px !important;
+}
+
+.avatar-circle {
+  width: 32px;
+  height: 32px;
+  background: var(--premium-indigo);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* 3. Dropdown Enhancements [cite: 1] */
+.premium-dropdown {
+  border-radius: 12px !important;
+  padding: 8px !important;
+  min-width: 240px;
+}
+
+.dropdown-item {
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.dropdown-item:hover {
+  background-color: #f1f5f9;
+}
+
+/* 4. Functional Animations [cite: 1] */
+.notification-dot {
+  width: 10px;
+  height: 10px;
+  animation: pulse-red 2s infinite;
+}
+
+@keyframes pulse-red {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(220, 38, 38, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+}
+
+/* Premium Notification Pulse */
+.notification-pulse {
+  width: 8px;
+  height: 8px;
+  background-color: #ef4444;
+  border-radius: 50%;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+/* The actual animation loop */
+.notification-pulse::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ef4444;
+  border-radius: 50%;
+  animation: pulse-ring 1.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.33); opacity: 1; }
+  80%, 100% { transform: scale(2.5); opacity: 0; }
+}
+
+/* Soft color badge for premium look */
+.bg-primary-soft {
+  background-color: rgba(79, 70, 229, 0.1) !important;
+}
+
+.extra-small {
+  font-size: 0.7rem;
+}
+
+/* Ensure dropdown doesn't get cut off */
+.premium-dropdown {
+  border-radius: 16px !important;
+  overflow: hidden;
+  padding: 0;
+}
+
+
+/* Color Palette */
+:root {
+  --indigo-main: #4f46e5;
+  --indigo-light: #e0e7ff;
+  --slate-dark: #1e293b;
+}
+
+/* Stat Cards */
+.card-stat {
+  background: #ffffff;
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0,0,0,0.03);
+}
+
+.card-stat:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+}
+
+.card-stat-body { padding: 24px; }
+
+.stat-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-footer-accent {
+  height: 4px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  opacity: 0.6;
+}
+
+/* Typography */
+.fw-black { font-weight: 900; }
+.ls-1 { letter-spacing: 1px; }
+
+/* Main Cards */
+.card-main, .card-mentor {
+  background: white;
+  border-radius: 28px;
+}
+
+.card-header-glass {
+  padding: 20px 24px;
+  background: rgba(79, 70, 229, 0.03);
+  border-bottom: 1px solid rgba(79, 70, 229, 0.08);
+}
+
+.session-highlight-box {
+  background: #f8fafc;
+  border: 1px solid #edf2f7;
+  border-radius: 20px;
+  padding: 24px;
+}
+
+/* Buttons */
+.btn-indigo-glow {
+  background: var(--indigo-main);
+  color: white;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.39);
+  border: none;
+  transition: all 0.2s;
+}
+
+.btn-indigo-glow:hover {
+  background: #4338ca;
+  transform: scale(1.05);
+  color: white;
+}
+
+/* Mentor Card Specifics */
+.mentor-cover {
+  height: 100px;
+  background: linear-gradient(to right, #4f46e5, #9333ea);
+  border-radius: 28px 28px 0 0;
+}
+
+.mentor-body { padding: 0 24px 32px 24px; margin-top: -50px; }
+
+.mentor-avatar-lg {
+  width: 100px;
+  height: 100px;
+  background: white;
+  border: 5px solid white;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--indigo-main);
+  margin: 0 auto;
+}
+
+.online-pulse {
+  width: 15px;
+  height: 15px;
+  background: #10b981;
+  border: 3px solid white;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 5px;
+  right: 125px; /* Adjust based on center */
+}
+
+/* Welcome Animation */
+.welcome-blob {
+  width: 50px;
+  height: 50px;
+  background: var(--indigo-light);
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 70%;
+  animation: blob-animate 8s linear infinite;
+}
+
+@keyframes blob-animate {
+  0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 70%; }
+  50% { border-radius: 70% 30% 30% 70% / 60% 40% 60% 40%; }
+  100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 70%; }
+}
+
+/* Welcome Section Styles */
+.welcome-icon-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.welcome-icon-box {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.4);
+}
+
+/* Animated Ring around the icon */
+.icon-pulse-ring {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background: rgba(79, 70, 229, 0.1);
+  border-radius: 50%;
+  z-index: 1;
+  animation: pulse-welcome 2s infinite;
+}
+
+@keyframes pulse-welcome {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(1.2); opacity: 0; }
+}
+
+/* Status Dot for "Active Session" badge */
+.dot-active {
+  height: 8px;
+  width: 8px;
+  background-color: #10b981;
+  border-radius: 50%;
+  display: inline-block;
+  animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+
+.bg-success-soft {
+  background-color: rgba(16, 185, 129, 0.1) !important;
+}
+
+.fw-black { font-weight: 900; }
+
+/* Mentor Profile Styling */
+.mentor-cover-gradient {
+  height: 120px;
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+}
+
+.mentor-avatar-xl {
+  width: 100px;
+  height: 100px;
+  background: #ffffff;
+  border-radius: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #4f46e5;
+  margin-top: -50px;
+  position: relative;
+}
+
+.icon-circle {
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Typography & Layout */
+.extra-small { font-size: 0.7rem; }
+.ls-1 { letter-spacing: 1px; }
+.bg-primary-soft { background: rgba(79, 70, 229, 0.1); }
+.shadow-xs { box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+
+/* Card Main Styling */
+.card-main, .card-mentor {
+  border-radius: 24px;
+}
+
+/* Table Specific Styling */
+.table thead th {
+  border-top: none;
+  background-color: #f8fafc;
+  letter-spacing: 0.5px;
+}
+
+.table tbody tr {
+  transition: all 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f5f9 !important;
+  cursor: pointer;
+}
+
+.avatar-sm-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+}
+
+/* Badge Variations */
+.bg-success-soft { background-color: rgba(16, 185, 129, 0.1) !important; color: #10b981 !important; }
+.bg-danger-soft { background-color: rgba(239, 68, 68, 0.1) !important; color: #ef4444 !important; }
+
+.badge-outline-pill {
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 50px;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  font-weight: 600;
+  background: white;
+}
+
+/* Icon Buttons */
+.btn-icon-sm {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  background: white;
+  transition: all 0.2s;
+}
+
+.btn-icon-sm:hover {
+  background-color: #4f46e5;
+  color: white;
+  border-color: #4f46e5;
+}
+
+.btn-white { background: white; color: #1e293b; }
+
+/* Custom Font Weight */
+.fw-black { font-weight: 900; }
+
+
+/* Form Field Styling */
+.form-select, .form-control {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #1e293b;
+  transition: all 0.2s;
+}
+
+.form-select:focus, .form-control:focus {
+  background-color: #ffffff !important;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1) !important;
+  border: 1px solid #4f46e5 !important;
+}
+
+/* Satisfaction Buttons */
+.btn-light {
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.btn-light:hover {
+  background: #ffffff;
+  border-color: #4f46e5;
+  transform: translateY(-2px);
+}
+
+.card-header-glass {
+  background: rgba(248, 250, 252, 0.8);
+  backdrop-filter: blur(10px);
+}
+
+.text-indigo {
+  color: #4338ca;
+}
+
+/* Checkmark Animation for Success */
+.welcome-icon-box {
+  animation: scaleUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes scaleUp {
+  from { transform: scale(0.5); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Profile Specific Styles */
+.profile-banner {
+  height: 160px;
+  background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+  position: relative;
+}
+
+.profile-avatar-lg {
+  width: 120px;
+  height: 120px;
+  background: #ffffff;
+  border: 6px solid #ffffff;
+  border-radius: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #6366f1;
+  position: relative;
+  z-index: 5;
+}
+
+.mt-n5 {
+  margin-top: -60px !important;
+}
+
+.bg-indigo {
+  background-color: #4f46e5 !important;
+}
+
+.btn-white-glass {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  backdrop-filter: blur(5px);
+  transition: all 0.3s;
+}
+
+.btn-white-glass:hover {
+  background: rgba(255, 255, 255, 1);
+  color: #4f46e5;
+}
+
+.ls-1 {
+  letter-spacing: 0.5px;
+}
+
+/* Card Stats */
+.card-stat {
+  border-radius: 24px;
+  transition: transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-stat:hover { transform: translateY(-5px); }
+
+.stat-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-footer-accent {
+  height: 4px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+/* Mentor Section */
+.mentor-cover {
+  height: 80px;
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+}
+
+.mentor-avatar-container {
+  margin-top: -45px;
+  position: relative;
+  display: inline-block;
+}
+
+.mentor-avatar-lg {
+  width: 90px;
+  height: 90px;
+  background: white;
+  border: 4px solid white;
+  border-radius: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #4f46e5;
+}
+
+.online-pulse {
+  width: 14px;
+  height: 14px;
+  background: #10b981;
+  border: 2px solid white;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+
+.badge-live {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 50px;
+  letter-spacing: 1px;
+}
+
+/* Color & Spacing Variables */
+:root {
+  --sidebar-width: 280px;
+  --bg-soft: #f4f7fe;
+}
+
+.bg-light-gray {
+  background-color: var(--bg-soft) !important;
+}
+
+/* Offset Logic */
+@media (min-width: 992px) {
+  .main-wrapper {
+    margin-left: var(--sidebar-width);
+  }
+}
+
+/* Premium Card Styling */
+.content-card {
+  border-radius: 30px; /* Highly rounded for a modern look */
+  min-height: 80vh;
+  background: #ffffff;
+}
+
+.shadow-premium {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Smooth Transition */
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+

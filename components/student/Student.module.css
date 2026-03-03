@@ -1,0 +1,627 @@
+/* ===== STUDENT SIDEBAR ===== */
+
+/* ===== SIDEBAR CONTAINER ===== */
+.sidebarContainer {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 280px;
+  z-index: 1000;
+  background: #ffffff;
+  border-right: 1px solid #e2e8f0;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+/* ===== BRAND SECTION ===== */
+.brandSection {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 0 0.5rem;
+}
+
+.brandLogo {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+}
+
+.brandName {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #1e293b;
+  letter-spacing: -0.5px;
+}
+
+/* ===== MENU LABELS ===== */
+.menuLabel {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #64748b;
+  font-weight: 600;
+  padding: 0.5rem 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* ===== DIVIDER ===== */
+.sidebarDivider {
+  height: 1px;
+  background: #e2e8f0;
+  margin: 0.5rem 0;
+}
+
+/* ===== SIDEBAR LINKS ===== */
+.sidebarLink {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s ease;
+  width: 100%;
+  margin-bottom: 0.25rem;
+}
+
+.sidebarLink:hover {
+  background: #501aceca;
+  transform: translateX(3px);
+}
+
+.sidebarLink.active {
+  background: #060f2838;
+  color: #4f46e5 !important;
+}
+
+.iconWrapper {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: #f8fafc;
+  margin-right: 1rem;
+  transition: all 0.2s ease;
+}
+
+.sidebarLink.active .iconWrapper {
+  background: #4f46e5;
+}
+
+.iconWrapper:hover {
+  background: #e2e8f0;
+}
+
+.linkText {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.activeIndicator {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: #e2e8f0;
+  margin-left: auto;
+  color: #4f46e5;
+}
+
+/* ===== MENTOR CARD ===== */
+.mentorCard {
+  margin-top: auto;
+  padding: 1.25rem;
+  background: #f8fafc;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 1.5rem;
+}
+
+.mentorHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.avatarWrapper {
+  position: relative;
+  margin-right: 1rem;
+}
+
+.avatarInitials {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: white;
+  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2);
+}
+
+.onlineStatus {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  background: #10b981;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 0 0 2px #f0f4ff;
+}
+
+.mentorInfo {
+  overflow: hidden;
+}
+
+.mentorName {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+  color: #1e293b;
+}
+
+.mentorRole {
+  font-size: 0.85rem;
+  color: #4f46e5;
+  display: flex;
+  align-items: center;
+}
+
+.mentorRole span {
+  margin-right: 4px;
+}
+
+/* ===== CONTACT BUTTON ===== */
+.contactButtonLink {
+  display: block;
+  width: 100%;
+}
+
+.contactButton {
+  width: 100%;
+  background: #4f46e5;
+  border: none;
+  color: white;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.25);
+}
+
+.contactButton:hover {
+  background: #4338ca;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(79, 70, 229, 0.35);
+}
+
+.contactButton:active {
+  transform: translateY(0);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 992px) {
+  .sidebarContainer {
+    width: 80px;
+    padding: 1.5rem 0.5rem;
+  }
+  
+  .brandName {
+    display: none;
+  }
+  
+  .linkText {
+    display: none;
+  }
+  
+  .activeIndicator {
+    display: none;
+  }
+  
+  .mentorName,
+  .mentorRole {
+    display: none;
+  }
+  
+  .iconWrapper {
+    margin-right: 0;
+  }
+  
+  .avatarInitials {
+    width: 40px;
+    height: 40px;
+    font-size: 0.9rem;
+  }
+  
+  .contactButton span {
+    display: none;
+  }
+  
+  .contactButton {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebarContainer {
+    width: 280px;
+  }
+}
+
+
+/* ===== NAVBAR CONTAINER ===== */
+.premiumNav {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 1rem 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* ===== BRAND GRADIENT ===== */
+.brandGradient {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
+}
+
+
+
+
+
+
+
+
+
+/* ===== NOTIFICATIONS BUTTON ===== */
+.btnNotifications {
+  position: relative;
+  width: 45px;
+  height: 45px;
+  background: linear-gradient(135deg, #f8fafc, #ffffff);
+  border: 2px solid #e2e8f0;
+  color: #4f46e5;
+  transition: all 0.3s ease;
+}
+
+.btnNotifications:hover {
+  background: #f0f4ff;
+  border-color: #4f46e5;
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.2);
+}
+
+.notificationBadge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 20px;
+  height: 20px;
+  background: #ef4444;
+  color: white;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  box-shadow: 0 4px 8px rgba(239, 68, 68, 0.4);
+}
+
+
+
+.dropdownHeader {
+  padding: 1.25rem;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, #f8fafc, #ffffff);
+}
+
+.notificationsList {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.notificationItem {
+  display: flex;
+  align-items: flex-start;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #f1f5f9;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.notificationItem:hover {
+  background: #e6ecf1;
+  transform: translateX(5px);
+}
+
+.notificationIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  color: white;
+}
+
+.notificationContent {
+  flex-grow: 1;
+}
+
+.notificationTime {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  margin-top: 0.25rem;
+}
+
+.dropdownFooter {
+  padding: 1rem 1.25rem;
+  border-top: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.btnClearAll {
+  width: 100%;
+  padding: 0.5rem;
+  background: transparent;
+  border: none;
+  color: #64748b;
+  font-size: 0.85rem;
+  transition: color 0.2s;
+}
+
+.btnClearAll:hover {
+  color: #4f46e5;
+}
+
+
+/* ===== AVATAR CIRCLE ===== */
+.avatarCirclePremium {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+}
+
+.avatarCirclePremium span {
+  font-size: 1.5rem;
+}
+
+.avatarGlow {
+  position: absolute;
+  inset: -10px;
+  background: radial-gradient(circle, rgba(79, 70, 229, 0.3) 0%, transparent 70%);
+  animation: glowPulse 3s infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+.avatarCircleLarge {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+/* ===== PREMIUM DROPDOWN ===== */
+.premiumDropdown {
+  min-width: 280px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.premiumDropdown .dropdown-item {
+  padding: 0.75rem 1.25rem;
+  transition: all 0.2s ease;
+}
+
+.premiumDropdown .dropdown-item:hover {
+  background: #f0f4ff;
+  color: #4f46e5;
+  transform: translateX(5px);
+}
+
+/* ===== CONFIG MODAL ===== */
+.configHeader {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.configHeader::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.configIconWrapper {
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.8rem;
+}
+
+.btnCloseWhite {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: none;
+  width: 40px;
+  height: 40px;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btnCloseWhite:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1) rotate(90deg);
+}
+
+/* ===== CONFIG ITEMS ===== */
+.configItem {
+  background: #f8fafc;
+  transition: all 0.2s ease;
+}
+
+.configItem:hover {
+  background: #f1f5f9;
+  transform: translateX(5px);
+}
+
+.bgLightHover {
+  background: #f8fafc;
+}
+
+.bgLightHover:hover {
+  background: #f1f5f9;
+}
+
+/* ===== CUSTOM SWITCH ===== */
+.customSwitchPremium {
+  position: relative;
+  width: 50px;
+  height: 26px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: #e2e8f0;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.customSwitchPremium:checked {
+  background: #4f46e5;
+}
+
+.customSwitchPremium::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.customSwitchPremium:checked::before {
+  transform: translateX(24px);
+}
+
+/* ===== LANGUAGE SELECT ===== */
+.languageSelect {
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 0.5rem 1rem;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.languageSelect:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+}
+
+/* ===== BUTTONS ===== */
+.btnGradientPrimary {
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  border: none;
+  color: white;
+  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btnGradientPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(79, 70, 229, 0.4);
+}
+
+.btnOutlineSecondary {
+  border: 2px solid #e2e8f0;
+  background: white;
+  color: #64748b;
+  transition: all 0.3s ease;
+}
+
+.btnOutlineSecondary:hover {
+  border-color: #4f46e5;
+  background: #f0f4ff;
+  color: #4f46e5;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+
+@media (max-width: 768px) {
+  .notificationsDropdown {
+    width: 100%;
+    max-width: 350px;
+  }
+}
+
+@media (max-width: 576px) {
+  .btnQuickAction {
+    display: none;
+  }
+}
