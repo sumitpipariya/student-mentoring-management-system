@@ -34,17 +34,43 @@ export default function StudentDashboard() {
     fetch('/api/student/dashboard')
       .then(res => res.json())
       .then(data => {
-        if (!data.error) setDashboardData(data);
+        if (!data.error) {
+          setDashboardData(data);
+        } else {
+          // Set default data when API returns an error (e.g. no mentor assigned)
+          setDashboardData({
+            attendancePercentage: 0,
+            stressLevel: 'N/A',
+            learnerType: 'N/A',
+            nextSessionDate: null,
+            nextSessionAgenda: 'No sessions scheduled',
+            chartData: {
+              labels: ['Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+              data: [0, 0, 0, 0, 0]
+            }
+          });
+        }
         setLoading(false);
       })
       .catch(err => {
         console.error(err);
+        setDashboardData({
+          attendancePercentage: 0,
+          stressLevel: 'N/A',
+          learnerType: 'N/A',
+          nextSessionDate: null,
+          nextSessionAgenda: 'Unable to load',
+          chartData: {
+            labels: ['Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            data: [0, 0, 0, 0, 0]
+          }
+        });
         setLoading(false);
       });
   }, []);
 
   if (loading) return <div className="p-5 text-center">Loading dashboard...</div>;
-  if (!dashboardData) return <div className="p-5 text-center text-danger">Failed to load data</div>;
+  if (!dashboardData) return <div className="p-5 text-center">Loading dashboard...</div>;
 
   const nextDateFormatted = dashboardData.nextSessionDate
     ? new Date(dashboardData.nextSessionDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })

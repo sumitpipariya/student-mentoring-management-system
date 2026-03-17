@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Toast from '@/components/Toast';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 export default function MentorAssignmentPage() {
   const router = useRouter();
@@ -17,6 +19,19 @@ export default function MentorAssignmentPage() {
   const [toDate, setToDate] = useState("");
   const [description, setDescription] = useState("");
 
+  // Toast & Dialog
+  const [toast, setToast] = useState({ show: false, message: '', type: 'success' as 'success' | 'error' | 'info' });
+  const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, assignId: 0 });
+  const [alertDialog, setAlertDialog] = useState({ isOpen: false, title: '', message: '', type: 'warning' as 'danger' | 'success' | 'warning' | 'info' });
+
+  const showToast = (message: string, type: 'success' | 'error' | 'info') => {
+    setToast({ show: true, message, type });
+  };
+
+  const showAlert = (title: string, message: string, type: 'danger' | 'success' | 'warning' | 'info' = 'warning') => {
+    setAlertDialog({ isOpen: true, title, message, type });
+  };
+
   useEffect(() => {
     // 1. Fetch Staff and Students to populate dropdowns
     fetch('/api/admin/staff').then(res => res.json()).then(data => { if (!data.error) setStaffList(data) });
@@ -29,7 +44,10 @@ export default function MentorAssignmentPage() {
   const handleAssign = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!selectedStaff || !selectedStudent) return alert("Please select both Mentor and Student");
+    if (!selectedStaff || !selectedStudent) {
+      showAlert('Selection Required', 'Please select both a Mentor and a Student before proceeding with the assignment.', 'warning');
+      return;
+    }
 
     const payload = {
       StaffID: selectedStaff,
@@ -52,32 +70,65 @@ export default function MentorAssignmentPage() {
         // Reset Form
         setSelectedStudent("");
         setDescription("");
+        showToast('Mentorship assigned successfully!', 'success');
       } else {
-        alert(data.error);
+        showAlert('Assignment Failed', data.error, 'danger');
       }
     } catch (err) {
       console.error(err);
-      alert("Failed to assign mentor.");
+      showAlert('Connection Error', 'Failed to assign mentor. Please check your connection and try again.', 'danger');
     }
   };
 
-  const handleUnassign = async (id: number) => {
-    if (confirm("Are you sure you want to revoke this mentorship assignment?")) {
-      try {
-        const res = await fetch(`/api/admin/assignments/${id}`, { method: 'DELETE' });
-        if (res.ok) {
-          setAssignments(assignments.filter(a => a.id !== id));
-        } else {
-          alert('Failed to delete assignment');
-        }
-      } catch (err) {
-        console.error(err);
+  const handleUnassignClick = (id: number) => {
+    setConfirmDialog({ isOpen: true, assignId: id });
+  };
+
+  const handleUnassignConfirm = async () => {
+    const id = confirmDialog.assignId;
+    setConfirmDialog({ isOpen: false, assignId: 0 });
+    try {
+      const res = await fetch(`/api/admin/assignments/${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        setAssignments(assignments.filter(a => a.id !== id));
+        showToast('Mentorship assignment revoked successfully', 'success');
+      } else {
+        showToast('Failed to delete assignment', 'error');
       }
+    } catch (err) {
+      console.error(err);
+      showToast('An unexpected error occurred', 'error');
     }
   };
 
   return (
     <div className="container-fluid py-4 animate-fade-in">
+      <Toast
+        isVisible={toast.show}
+        message={toast.message}
+        type={toast.type}
+        onClose={() => setToast({ ...toast, show: false })}
+      />
+      <ConfirmDialog
+        isOpen={confirmDialog.isOpen}
+        title="Revoke Mentorship"
+        message="Are you sure you want to revoke this mentorship assignment? The mentor-mentee relationship will be terminated immediately."
+        type="danger"
+        confirmText="Yes, Revoke"
+        cancelText="Keep Assignment"
+        onConfirm={handleUnassignConfirm}
+        onCancel={() => setConfirmDialog({ isOpen: false, assignId: 0 })}
+      />
+      <ConfirmDialog
+        isOpen={alertDialog.isOpen}
+        title={alertDialog.title}
+        message={alertDialog.message}
+        type={alertDialog.type}
+        confirmText="OK, Got it"
+        onConfirm={() => setAlertDialog({ ...alertDialog, isOpen: false })}
+        onCancel={() => setAlertDialog({ ...alertDialog, isOpen: false })}
+        showCancel={false}
+      />
       <div className="mb-4">
         <h2 className="fw-black text-dark mb-1">Mentor-Mentee Mapping</h2>
         <p className="text-secondary fw-medium">Establish relationships between Faculty and Students </p>
@@ -178,7 +229,7 @@ export default function MentorAssignmentPage() {
                       <td className="pe-4 text-end">
                         <button
                           className="btn-action-delete"
-                          onClick={() => handleUnassign(assign.id)}
+                          onClick={() => handleUnassignClick(assign.id)}
                           title="Revoke Assignment"
                         >
                           <span className="material-symbols-rounded">link_off</span>

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import styles from '../../staff.module.css';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 interface Mentee {
     id: number;
@@ -17,6 +18,16 @@ export default function AddSessionPage() {
     const [submitting, setSubmitting] = useState(false);
     const [currentStep, setCurrentStep] = useState(1);
     const totalSteps = 4;
+    const [dialogState, setDialogState] = useState<{
+        isOpen: boolean;
+        title: string;
+        message: string;
+        type: 'danger' | 'success' | 'warning' | 'info';
+        onConfirm: () => void;
+    }>({
+        isOpen: false, title: '', message: '', type: 'info',
+        onConfirm: () => setDialogState(prev => ({ ...prev, isOpen: false }))
+    });
 
     const [formData, setFormData] = useState({
         studentId: '',
@@ -81,8 +92,13 @@ export default function AddSessionPage() {
         e.preventDefault();
 
         if (!formData.studentId) {
-            alert('Please select a student');
-            setCurrentStep(1);
+            setDialogState({
+                isOpen: true,
+                title: 'Student Required',
+                message: 'Please select a student before creating a session.',
+                type: 'warning',
+                onConfirm: () => { setDialogState(prev => ({ ...prev, isOpen: false })); setCurrentStep(1); }
+            });
             return;
         }
 
@@ -96,14 +112,31 @@ export default function AddSessionPage() {
 
             const data = await res.json();
             if (data.success) {
-                alert('Session created successfully!');
-                router.push('/staff/sessions');
+                setDialogState({
+                    isOpen: true,
+                    title: 'Session Created!',
+                    message: 'The mentoring session has been recorded successfully. You will be redirected to the sessions list.',
+                    type: 'success',
+                    onConfirm: () => { setDialogState(prev => ({ ...prev, isOpen: false })); router.push('/staff/sessions'); }
+                });
             } else {
-                alert(data.error || 'Failed to create session');
+                setDialogState({
+                    isOpen: true,
+                    title: 'Creation Failed',
+                    message: data.error || 'Failed to create session. Please verify all details and try again.',
+                    type: 'danger',
+                    onConfirm: () => setDialogState(prev => ({ ...prev, isOpen: false }))
+                });
             }
         } catch (err) {
             console.error("Submit error:", err);
-            alert('An error occurred while creating the session.');
+            setDialogState({
+                isOpen: true,
+                title: 'Connection Error',
+                message: 'An error occurred while creating the session. Please check your connection and try again.',
+                type: 'danger',
+                onConfirm: () => setDialogState(prev => ({ ...prev, isOpen: false }))
+            });
         }
         setSubmitting(false);
     };
@@ -121,6 +154,16 @@ export default function AddSessionPage() {
 
     return (
         <div className="animate-fade-in">
+            <ConfirmDialog
+                isOpen={dialogState.isOpen}
+                title={dialogState.title}
+                message={dialogState.message}
+                type={dialogState.type}
+                confirmText="OK, Got it"
+                onConfirm={dialogState.onConfirm}
+                onCancel={() => setDialogState(prev => ({ ...prev, isOpen: false }))}
+                showCancel={false}
+            />
             <div className="container-fluid">
                 {/* Header */}
                 <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">

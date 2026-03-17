@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Toast from '@/components/Toast';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 export default function AdminStaffPage() {
   const router = useRouter();
@@ -10,6 +11,7 @@ export default function AdminStaffPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
   const [toast, setToast] = useState({ show: false, message: '', type: 'success' as 'success' | 'error' | 'info' });
+  const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, staffId: 0 });
 
   const showToast = (message: string, type: 'success' | 'error' | 'info') => {
     setToast({ show: true, message, type });
@@ -26,20 +28,24 @@ export default function AdminStaffPage() {
       .catch(err => console.error(err));
   }, []);
 
-  const handleDelete = async (id: number) => {
-    if (confirm("Permanently remove this mentor?")) {
-      try {
-        const res = await fetch(`/api/admin/staff/${id}`, { method: 'DELETE' });
-        if (res.ok) {
-          setStaffList(staffList.filter(s => s.id !== id));
-          showToast('Mentor removed successfully', 'success');
-        } else {
-          showToast('Failed to remove mentor', 'error');
-        }
-      } catch (err) {
-        console.error("Delete failed", err);
-        showToast('An unexpected error occurred during deletion', 'error');
+  const handleDeleteClick = (id: number) => {
+    setConfirmDialog({ isOpen: true, staffId: id });
+  };
+
+  const handleDeleteConfirm = async () => {
+    const id = confirmDialog.staffId;
+    setConfirmDialog({ isOpen: false, staffId: 0 });
+    try {
+      const res = await fetch(`/api/admin/staff/${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        setStaffList(staffList.filter(s => s.id !== id));
+        showToast('Mentor removed successfully', 'success');
+      } else {
+        showToast('Failed to remove mentor', 'error');
       }
+    } catch (err) {
+      console.error("Delete failed", err);
+      showToast('An unexpected error occurred during deletion', 'error');
     }
   };
 
@@ -64,6 +70,16 @@ export default function AdminStaffPage() {
         message={toast.message}
         type={toast.type}
         onClose={() => setToast({ ...toast, show: false })}
+      />
+      <ConfirmDialog
+        isOpen={confirmDialog.isOpen}
+        title="Delete Mentor Record"
+        message="This action is irreversible. The mentor's account and all associated data will be permanently removed from the system."
+        type="danger"
+        confirmText="Yes, Delete"
+        cancelText="Keep Record"
+        onConfirm={handleDeleteConfirm}
+        onCancel={() => setConfirmDialog({ isOpen: false, staffId: 0 })}
       />
       {/* Header section... (keeping as per your design) */}
       <div className="d-flex justify-content-between align-items-center mb-4">
@@ -139,7 +155,7 @@ export default function AdminStaffPage() {
                         {/* Delete Button: Soft Red Circle */}
                         <button
                           className="btn-action-delete"
-                          onClick={() => handleDelete(staff.id)}
+                          onClick={() => handleDeleteClick(staff.id)}
                           title="Delete Mentor"
                         >
                           <span className="material-symbols-rounded">delete_sweep</span>

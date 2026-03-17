@@ -15,15 +15,28 @@ export async function GET(request: NextRequest) {
         });
 
         if (!student) {
-            return NextResponse.json(
-                { error: "Student not found" },
-                { status: 404 }
-            );
+            // Return default profile so the page still renders
+            const user = await prisma.user.findFirst({ where: { UserID: userId } });
+            return NextResponse.json({
+                name: user?.Username || 'Student',
+                enrollmentNo: 'N/A',
+                email: 'Not set',
+                phone: 'Not set',
+                description: 'No description provided.',
+                parentName: 'Not provided',
+                parentMobileNo: 'Not provided',
+                username: user?.Username || 'Not setup',
+                role: user?.Role || 'STUDENT',
+                joined: 'Unknown'
+            });
         }
 
-        const user = await prisma.user.findFirst({
-            where: { UserID: student.UserID || undefined }
-        });
+        let user = null;
+        if (student.UserID) {
+            user = await prisma.user.findFirst({
+                where: { UserID: student.UserID }
+            });
+        }
 
         return NextResponse.json({
             name: student.StudentName || 'Unknown Student',

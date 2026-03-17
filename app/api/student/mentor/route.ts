@@ -24,7 +24,12 @@ export async function GET(request: NextRequest) {
         });
 
         if (!currentMentorAssignment) {
-            return NextResponse.json({ error: "Mentor not found" }, { status: 404 });
+            return NextResponse.json({
+                assigned: false,
+                staff: null,
+                assignment: null,
+                latestSession: null
+            });
         }
 
         const staff = await prisma.staff.findFirst({
@@ -37,12 +42,13 @@ export async function GET(request: NextRequest) {
         });
 
         return NextResponse.json({
+            assigned: true,
             staff: {
                 name: staff?.StaffName || 'Unknown',
                 role: 'Faculty Mentor',
                 email: staff?.EmailAddress || 'Not Provided',
                 phone: staff?.MobileNo || 'Not Provided',
-                dept: 'Department missing',
+                dept: staff?.Description || 'Department not set',
                 description: staff?.Description || 'No description available',
             },
             assignment: {
@@ -65,3 +71,4 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }
 }
+

@@ -3,6 +3,24 @@ import React, { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Toast from '@/components/Toast';
 
+const DEPARTMENTS = [
+  'Computer Engineering',
+  'Information Technology',
+  'Mechanical Engineering',
+  'Civil Engineering',
+  'Electrical Engineering',
+  'Electronics & Communication',
+  'Chemical Engineering',
+  'Automobile Engineering',
+  'Biomedical Engineering',
+  'Applied Sciences & Humanities',
+  'Business Administration',
+  'Mathematics',
+  'Physics',
+  'Chemistry',
+  'Environmental Engineering',
+];
+
 export default function StaffFormPage() {
   const router = useRouter();
   const { id } = useParams();
@@ -134,9 +152,20 @@ export default function StaffFormPage() {
                 )}
 
                 <div className="col-12">
-                  <label className="form-label extra-small fw-black text-muted text-uppercase">Department / Description</label>
-                  <textarea className="form-control border-0 bg-light p-3 rounded-3" rows={3} value={formData.Description}
-                    onChange={(e) => setFormData({ ...formData, Description: e.target.value })} placeholder="Mention department or role..."></textarea>
+                  <label className="form-label extra-small fw-black text-muted text-uppercase">Department</label>
+                  <select
+                    className="form-select border-0 bg-light p-3 rounded-3"
+                    value={formData.Description}
+                    onChange={(e) => setFormData({ ...formData, Description: e.target.value })}
+                    required
+                  >
+                    <option value="" disabled>-- Select Department --</option>
+                    {DEPARTMENTS.map((dept) => (
+                      <option key={dept} value={dept}>
+                        {dept}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
                 <div className="col-12 mt-5">

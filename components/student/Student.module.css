@@ -227,38 +227,38 @@
     width: 80px;
     padding: 1.5rem 0.5rem;
   }
-  
+
   .brandName {
     display: none;
   }
-  
+
   .linkText {
     display: none;
   }
-  
+
   .activeIndicator {
     display: none;
   }
-  
+
   .mentorName,
   .mentorRole {
     display: none;
   }
-  
+
   .iconWrapper {
     margin-right: 0;
   }
-  
+
   .avatarInitials {
     width: 40px;
     height: 40px;
     font-size: 0.9rem;
   }
-  
+
   .contactButton span {
     display: none;
   }
-  
+
   .contactButton {
     padding: 0.5rem;
   }
@@ -429,8 +429,15 @@
 }
 
 @keyframes glowPulse {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.6; }
+
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
 }
 
 .avatarCircleLarge {
@@ -478,13 +485,18 @@
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
   animation: rotate 20s linear infinite;
 }
 
 @keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .configIconWrapper {

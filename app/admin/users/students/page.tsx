@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Toast from '@/components/Toast';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 export default function AdminStudentsPage() {
   const router = useRouter();
@@ -10,6 +11,7 @@ export default function AdminStudentsPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
   const [toast, setToast] = useState({ show: false, message: '', type: 'success' as 'success' | 'error' | 'info' });
+  const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, studentId: 0 });
 
   const showToast = (message: string, type: 'success' | 'error' | 'info') => {
     setToast({ show: true, message, type });
@@ -26,20 +28,24 @@ export default function AdminStudentsPage() {
       .catch(err => console.error(err));
   }, []);
 
-  const handleDelete = async (id: number) => {
-    if (confirm("Are you sure you want to remove this student record?")) {
-      try {
-        const res = await fetch(`/api/admin/students/${id}`, { method: 'DELETE' });
-        if (res.ok) {
-          setStudents(students.filter(s => s.id !== id));
-          showToast('Student record deleted successfully', 'success');
-        } else {
-          showToast('Failed to delete student record', 'error');
-        }
-      } catch (err) {
-        console.error("Delete failed", err);
-        showToast('An unexpected error occurred during deletion', 'error');
+  const handleDeleteClick = (id: number) => {
+    setConfirmDialog({ isOpen: true, studentId: id });
+  };
+
+  const handleDeleteConfirm = async () => {
+    const id = confirmDialog.studentId;
+    setConfirmDialog({ isOpen: false, studentId: 0 });
+    try {
+      const res = await fetch(`/api/admin/students/${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        setStudents(students.filter(s => s.id !== id));
+        showToast('Student record deleted successfully', 'success');
+      } else {
+        showToast('Failed to delete student record', 'error');
       }
+    } catch (err) {
+      console.error("Delete failed", err);
+      showToast('An unexpected error occurred during deletion', 'error');
     }
   };
 
@@ -63,6 +69,16 @@ export default function AdminStudentsPage() {
         message={toast.message}
         type={toast.type}
         onClose={() => setToast({ ...toast, show: false })}
+      />
+      <ConfirmDialog
+        isOpen={confirmDialog.isOpen}
+        title="Remove Student Record"
+        message="This will permanently delete the student's enrollment record, account credentials, and all related data. This action cannot be undone."
+        type="danger"
+        confirmText="Yes, Remove"
+        cancelText="Keep Record"
+        onConfirm={handleDeleteConfirm}
+        onCancel={() => setConfirmDialog({ isOpen: false, studentId: 0 })}
       />
       <div className="d-flex justify-content-between align-items-end mb-4">
         <div>
@@ -130,7 +146,7 @@ export default function AdminStudentsPage() {
                         </button>
                         <button
                           className="btn-action-delete"
-                          onClick={() => handleDelete(std.id)}
+                          onClick={() => handleDeleteClick(std.id)}
                         >
                           <span className="material-symbols-rounded">person_remove</span>
                         </button>

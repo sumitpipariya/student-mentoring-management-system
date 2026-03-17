@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
         });
 
         if (!currentMentorAssignment) {
-            return NextResponse.json({ error: "Mentor not found" }, { status: 404 });
+            return NextResponse.json({ sessions: [] });
         }
 
         const staff = await prisma.staff.findFirst({
