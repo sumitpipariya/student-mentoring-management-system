@@ -8,7 +8,7 @@ export async function GET() {
         });
 
         const assignments = await Promise.all(
-            assignmentsRaw.map(async (mapping) => {
+            assignmentsRaw.map(async (mapping: any) => {
                 const staff = await prisma.staff.findUnique({ where: { StaffID: mapping.StaffID } });
                 const student = await prisma.student.findUnique({ where: { StudentID: mapping.StudentID } });
 

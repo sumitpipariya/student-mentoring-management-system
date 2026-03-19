@@ -8,10 +8,10 @@ export default function AdminDashboard() {
 
   // States aligned with Database Schema counts
   const [counts, setCounts] = useState({
-    mentors: 0,   // From Staff table
-    students: 0,  // From Student table
-    mappings: 0,  // From StudentMentor table
-    alerts: 0     // Based on High Stress levels in StudentMentoring
+    mentors: 0,  
+    students: 0, 
+    mappings: 0, 
+    alerts: 0    
   });
 
   const [recentMappings, setRecentMappings] = useState<any[]>([]);
