@@ -19,7 +19,7 @@ export async function GET() {
         });
 
         const recentMappings = await Promise.all(
-            recentMappingsRaw.map(async (mapping) => {
+            recentMappingsRaw.map(async (mapping: any) => {
                 const staff = await prisma.staff.findUnique({ where: { StaffID: mapping.StaffID } });
                 const student = await prisma.student.findUnique({ where: { StudentID: mapping.StudentID } });
                 return {
