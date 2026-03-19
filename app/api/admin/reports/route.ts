@@ -26,11 +26,11 @@ export async function GET() {
             orderBy: { DateOfMentoring: 'desc' }
         });
 
-        const mentorWise = mentors.map(mentor => {
-            const assignedMentees = studentMentors.filter(sm => sm.StaffID === mentor.StaffID);
+        const mentorWise = mentors.map((mentor: any) => {
+            const assignedMentees = studentMentors.filter((sm: any) => sm.StaffID === mentor.StaffID);
             const menteeCount = assignedMentees.length;
-            const smIds = assignedMentees.map(sm => sm.StudentMentorID);
-            const mentorSessions = mentorings.filter(m => smIds.includes(m.StudentMentorID));
+            const smIds = assignedMentees.map((sm: any) => sm.StudentMentorID);
+            const mentorSessions = mentorings.filter((m: any) => smIds.includes(m.StudentMentorID));
 
             const completedPercentage = menteeCount > 0 ? Math.min(100, Math.round((mentorSessions.length / (menteeCount * 2)) * 100)) : 0;
             const lastActivity = mentorSessions.length > 0 && mentorSessions[0].DateOfMentoring
@@ -47,9 +47,9 @@ export async function GET() {
             };
         });
 
-        const progress = students.map(student => {
-            const assignedMentor = studentMentors.find(sm => sm.StudentID === student.StudentID);
-            const mentor = mentors.find(m => m.StaffID === assignedMentor?.StaffID);
+        const progress = students.map((student: any) => {
+            const assignedMentor = studentMentors.find((sm: any) => sm.StudentID === student.StudentID);
+            const mentor = mentors.find((m: any) => m.StaffID === assignedMentor?.StaffID);
 
             let stressLevel = 'Low';
             let learnerType = 'Standard';
@@ -57,7 +57,7 @@ export async function GET() {
             let progressPercentage = 0;
 
             if (assignedMentor) {
-                const studentSessions = mentorings.filter(m => m.StudentMentorID === assignedMentor.StudentMentorID);
+                const studentSessions = mentorings.filter((m: any) => m.StudentMentorID === assignedMentor.StudentMentorID);
                 if (studentSessions.length > 0) {
                     stressLevel = studentSessions[0].StressLevel || 'Low';
                     learnerType = studentSessions[0].LearnerType || 'Standard';
